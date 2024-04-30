@@ -3,10 +3,17 @@ import Square from "./Square";
 
 export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
+  const [nextMove, setNextMove]=useState(true)
   function handleSquareCLick(index) {
+    if(squares[index])
+    return;
     setSquares((prev) => {
     const newArray=[...prev];
+    if(nextMove)
     newArray[index]="X";
+    else
+    newArray[index]="O"
+    setNextMove(!nextMove)
     return newArray;
 
     });
