@@ -4,22 +4,61 @@ import Square from "./Square";
 export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [nextMove, setNextMove]=useState(true)
+
+  const winner=calculateWinner(squares)
+  let status;
+  if(winner)
+  {
+    status=`${winner} won!`;
+  }
+  else if(squares.every(item=>item===null))
+  {
+    status= "Player : " + (nextMove? "X":"O")
+  }
+  else
+  {
+    status="Next Player : " + (nextMove? "X":"O")
+  }
+
   function handleSquareCLick(index) {
-    if(squares[index])
+    
+    if(squares[index] || calculateWinner(squares))
     return;
     setSquares((prev) => {
-    const newArray=[...prev];
+    const newArray=[...prev];   
     if(nextMove)
-    newArray[index]="X";
+    newArray[index]="X";   //immutabailiy approach--> changing data making copy of it that has desired changes , not directly changing squares array
     else
-    newArray[index]="O"
+    newArray[index]="O"    //immutabailiy approach--> changing data making copy of it that has desired changes
     setNextMove(!nextMove)
     return newArray;
 
     });
   }
+  function calculateWinner(squares) {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    for(let i=0;i<lines.length;i++)
+    {
+      const [a,b,c]=lines[i];
+      if(squares[a] && squares[a]===squares[b]&& squares[a]===squares[c])
+      return squares[a];
+    }
+      
+      return null
+    }
+  
   return (
-    <div className="h-screen w-full bg-purple-300 flex justify-center items-center">
+    <div className="h-screen w-full bg-purple-300 flex flex-col gap-4 justify-center items-center">
+      <div className="text-2xl text-purple-900 font-bold font-serif">{status}</div>
       <div className="flex gap-1 flex-col border-white border-2">
         <div className="board-row flex gap-1">
           <Square value={squares[0]} onSquareClick={()=>handleSquareCLick(0)} />
