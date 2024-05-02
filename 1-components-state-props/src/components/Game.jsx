@@ -3,8 +3,8 @@ import Board from "./Board.jsx";
 
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [nextMove, setNextMove] = useState(true);
   const [currentMove, setCurrentMove]=useState(0);
+  let nextMove=currentMove%2===0
   let squares = history[currentMove];
 
   function handlePlay(newSquares) {
@@ -12,11 +12,10 @@ export default function Game() {
 
     setHistory(newHistory);
     setCurrentMove(newHistory.length-1)
-    setNextMove(!nextMove);
-  }
+  } 
   function handleJump(index) {
   setCurrentMove(index);
-  setNextMove(index%2===0)
+ 
   }
   return (
     <>
