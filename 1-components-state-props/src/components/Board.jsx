@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Square from "./Square";
 
-export default function Board() {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [nextMove, setNextMove]=useState(true)
+export default function Board({nextMove, squares, onPlay}) {
+  // const [squares, setSquares] = useState(Array(9).fill(null));  --->state uplifted to let the game component tracks game state(history) at every move 
+  // const [nextMove, setNextMove]=useState(true)
 
   const winner=calculateWinner(squares)
   let status;
@@ -24,16 +24,14 @@ export default function Board() {
     
     if(squares[index] || calculateWinner(squares))
     return;
-    setSquares((prev) => {
-    const newArray=[...prev];   
+    
+    const newArray=[...squares];    //immutability-->changing data by making changes in the copy of it , keeping original data intact
     if(nextMove)
     newArray[index]="X";   //immutabailiy approach--> changing data making copy of it that has desired changes , not directly changing squares array
     else
     newArray[index]="O"    //immutabailiy approach--> changing data making copy of it that has desired changes
-    setNextMove(!nextMove)
-    return newArray;
-
-    });
+ 
+    onPlay(newArray)
   }
   function calculateWinner(squares) {
     const lines = [
@@ -57,7 +55,8 @@ export default function Board() {
     }
   
   return (
-    <div className="h-screen w-full bg-purple-300 flex flex-col gap-4 justify-center items-center">
+    <>
+       <div className="flex flex-col gap-4 items-center justify-center">
       <div className="text-2xl text-purple-900 font-bold font-serif">{status}</div>
       <div className="flex gap-1 flex-col border-white border-2">
         <div className="board-row flex gap-1">
@@ -76,6 +75,7 @@ export default function Board() {
           <Square value={squares[8]} onSquareClick={()=>handleSquareCLick(8)}  />
         </div>
       </div>
-    </div>
+      </div>
+      </>
   );
 }
