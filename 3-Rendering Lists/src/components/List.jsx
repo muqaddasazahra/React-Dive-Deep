@@ -1,0 +1,38 @@
+import people from "../data";
+
+export default function List({ listType }) {
+  let profiles = people;
+  if (listType === "chemists") {
+    profiles = people.filter((person) => {
+      return person.profession === "chemist";
+    });
+  } else if (listType === "non-Chemists") {
+    profiles = people.filter((person) => {
+      return person.profession !== "chemist";
+    });
+  }
+
+  return (
+    <>
+      <div className="h-fit w-full flex items-center justify-center gap-3">
+        {profiles.map((person) => (
+          // {one list item is rendering multiple DOM NodeList, so grouping them into div and passing key}
+          <div
+            key={person.id}
+            className=" border-blue-400 border-2 shadow-blue-300 shadow-md text-center flex flex-col justify-center items-center w-56 h-52 gap-1 p-5"
+          >
+            <h1 className="font-bold text-2xl text-blue-600  text-center">{person.name}</h1>
+            <p className="font-medium ">
+              {person.profession.charAt(0).toUpperCase() +
+                person.profession.slice(1)}
+            </p>
+            <p className="font-medium ">
+              {person.accomplishment.charAt(0).toUpperCase() +
+                person.accomplishment.slice(1)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
