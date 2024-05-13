@@ -5,6 +5,7 @@ import List from "./components/List";
 function App() {
   const [filterButtonClicked, setFilterButtonClicked] = useState(false);
   const [listType, setListType] = useState("scientist");
+  const [typedText, setTypedText]=useState();
   function handleClick(clickedButton) {
     if (clickedButton === "filter") {
       setFilterButtonClicked(!filterButtonClicked);
@@ -12,6 +13,10 @@ function App() {
     }
     setListType(clickedButton);
     setFilterButtonClicked(!filterButtonClicked);
+  }
+  function handleChange(event)
+  {
+  setTypedText(event.target.value);
   }
   return (
     <>
@@ -25,9 +30,10 @@ function App() {
             filterButtonClicked={filterButtonClicked}
             handleClick={handleClick}
           />
+          <input onChange={handleChange} type="text" placeholder="Type Profession to search profile"  className="bg-white shadow focus:outline-none text-blue-600 focus:border-blue-600 rounded-md border-2 px-4 py-2 placeholder:text-gray-400   " />
         </div>
 
-        <List listType={listType} handleClick={handleClick} />
+        <List listType={listType} handleClick={handleClick} typedText={typedText}/>
       </div>
     </>
   );
