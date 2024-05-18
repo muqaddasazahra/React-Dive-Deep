@@ -18,7 +18,7 @@ export default function Button({ bg_color, isActive, onClick}) {
 
   return (
     <>
-      <button onClick={handleClick} className={styles} value={isActive}>
+      <button onClick={handleClick} className={styles} value={bg_color}>
         {isActive? `Hey, I am ${bg_color} Button` : "Who Am I?"}
       </button>
     </>
