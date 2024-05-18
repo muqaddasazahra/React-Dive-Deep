@@ -8,7 +8,7 @@ export default function Button({ bg_color }) {
   const [btnText, setBtnText] = useState("Who Am I");
 
   function handleClick(event) {
-    setBtnText(`Hey, I am a ${bg_color} Button`);
+    setBtnText(`Hey, I am ${bg_color} Button`);
 
     if (event.target.value === "Amber") {
       event.stopPropagation(); //Click event of Amber Button will never propagate up.

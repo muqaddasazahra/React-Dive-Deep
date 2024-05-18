@@ -15,7 +15,7 @@ function App() {
         setText(`Meet Me! I am a div`);
           
         }}
-        className="h-fit w-fit py-20 px-40 border-2 border-teal-500 rounded-md shadow-md  flex flex-col gap-2 justify-center items-center"
+        className="w-[40rem] h-[16rem] py-20 px-30 border-2 border-teal-500 rounded-md shadow-md  flex flex-col gap-2 justify-center items-center"
       >
         <p className="font-bold text-2xl">{text}</p>
         <Button bg_color="Teal" />
