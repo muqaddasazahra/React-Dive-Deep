@@ -26,10 +26,15 @@ function App() {
         }}
         className="w-[40rem] h-[16rem] py-20 px-30 border-2 border-teal-500 rounded-md shadow-md  flex flex-col gap-2 justify-center items-center"
       >  
-        
+        <div className="h-44">
         <p className="font-bold text-2xl">{activeBtn==="Teal" && text}</p>
+        </div>
+        
+        <div className="flex justify-center items-center gap-2">
         <Button bg_color="Teal" onClick={handleClick} isActive={activeBtn==="Teal"} />
         <Button bg_color="Amber"  onClick={handleClick} isActive={activeBtn==="Amber"}/>
+        </div>
+       
       
       </div>
     </div>
