@@ -62,11 +62,17 @@ function handleDecreaseQuantity(productId)
 
   return (
     <>
+    <div className="h-screen w-full flex justify-center items-center">
+    <div className="h-2/3 w-1/3 p-14 border-2 border-amber-500 rounded-md relative shadow-2xl flex flex-col justify-center items-center">
+    <ShoppingCart products={products} handleDecreaseQuantity={handleDecreaseQuantity} handleIncreaseQuantity={handleIncreaseQuantity}/>
+    <div className="flex gap-2 w-80 justify-center items-center rounded-md h-[20%] absolute bottom-[-30px]  bg-amber-500">
+    <input type="text" value={newItem} className="bg-gray-200 rounded-md h-8  focus:outline-none focus:border-2 focus:border-white px-1"onChange={(e)=>setNewItem(e.target.value)} />
 
-     <ShoppingCart products={products} handleDecreaseQuantity={handleDecreaseQuantity} handleIncreaseQuantity={handleIncreaseQuantity}/>
-     <input type="text" value={newItem} onChange={(e)=>setNewItem(e.target.value)} />
-
-     <button onClick={()=>handleAddItem(newItem)}>Add</button>
+     <button className="font-bold text-white tracking-wide" onClick={()=>handleAddItem(newItem)}>Add</button>
+     </div>
+    </div>
+    </div>
+    
     </>
   )
 }
