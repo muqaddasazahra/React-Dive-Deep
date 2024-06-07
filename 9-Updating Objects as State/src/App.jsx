@@ -1,11 +1,12 @@
 import Button from "./components/Button";
 import Input from "./components/Input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Modal from "./components/Modal";
 import FormSection from "./components/FormSection";
 
 
 function App() {
+  let dialog=useRef();
   const defaultForm = {
     name: {
       firstName: "",
@@ -41,7 +42,7 @@ function App() {
     <>
       
       <div className="h-screen w-full flex flex-col text text-indigo-500 justify-center items-center">
-      {isSubmitted ? <Modal form={form}  onEdit={()=>setIsSubmited(false)} onClose={handleReset}/> :
+      <Modal form={form} ref={dialog} onEdit={()=>setIsSubmited(false)} onClose={handleReset}/> 
         <form onSubmit={(e)=>e.preventDefault()} className="h-[80%] w-[30%] flex justify-center items-center flex-col border-indigo-500 border-2 gap-2 rounded-md">
           <FormSection section="Full Name">
           <Input value={form.name.firstName} placeholder="First Name" onChange={(event)=>handleChange("name","firstName",event)} />
@@ -59,9 +60,9 @@ function App() {
           
           <div className="mt-5 flex justify-end w-full mr-20 gap-2 items-center">
             <Button text="Reset" onClick={handleReset} />
-            <Button text="Submit" onClick={()=>setIsSubmited(true)}/>
+            <Button text="Submit" onClick={()=>{setIsSubmited(true); dialog.current.showModal()}}/>
           </div>
-        </form>}
+        </form>
       </div>
     </>
   );
