@@ -4,27 +4,33 @@ import Modal from "./Modal";
 
 export default function Challenge({ text, targetTime }) {
   
-  const [timerStarted, setTimerStarted]=useState(false)
-  const [timerExpired, setTimerExpired]=useState(false);
+ 
+  
+  const [remainingTime, setRemainingTime]=useState(targetTime*1000);
   let timer=useRef();
   let dialog=useRef();
+  const timerIsActive= remainingTime>0 && remainingTime<targetTime*1000;
 
   function handleStart()
   { 
-    timer.current =setTimeout(()=>{
-    setTimerExpired(true);
-    dialog.current.open();
-    setTimerStarted(false);
-    }, targetTime*1000)
-
-    setTimerStarted(true)
+    timer.current =setInterval(()=>{
+    setRemainingTime(prev=>prev-10)
+    },10)
   }
+
+  if(remainingTime<=0)
+    { 
+    handleStop();
+    }
 
   function handleStop()
   { 
 
-    clearTimeout(timer.current);
-    setTimerStarted(false);
+    clearInterval(timer.current);
+    setRemainingTime(targetTime*1000)
+    dialog.current.open();
+
+    
     
   }
   return (
@@ -33,11 +39,11 @@ export default function Challenge({ text, targetTime }) {
      <section className="flex bg-white w-[35%] h-[70%] p-15 rounded-md shadow-md flex-col justify-center items-center gap-2">
       <h1 className="text-2xl font-bold">{text}</h1>
       <p className="text-xl font-medium">Target Time : {targetTime} </p>
-      <button onClick={timerStarted? handleStop : handleStart} className="bg-gradient-to-r from-teal-500 to-teal-700 px-10 text-white rounded-md shadow-sm py-2">
-        {timerStarted? "Stop" : "Start"}
+      <button onClick={timerIsActive? handleStop : handleStart} className="bg-gradient-to-r from-teal-500 to-teal-700 px-10 text-white rounded-md shadow-sm py-2">
+        {timerIsActive? "Stop" : "Start"}
       </button>
       <p className="text-sm">
-        {timerStarted? "Timer is running...":"Timer is In-active"}
+        {timerIsActive? "Timer is running...":"Timer is In-active"}
         </p>
     </section>
     </>
