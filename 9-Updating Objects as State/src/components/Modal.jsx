@@ -4,6 +4,8 @@ import Button from "./Button";
 const Modal = forwardRef(function Modal({ form, onEdit, onClose }, ref) {
   return (
     <dialog ref={ref} className="h-96 w-1/3 bg-indigo-400 text-white rounded-md  backdrop:bg-black backdrop:opacity-70">
+
+      {/* added extra div to use flex layout as dialog element default styling conflicts with flex layout, and dialog doesn't work as expected */}
       <div className="flex flex-col justify-center items-center gap-5 h-[100%] w-[100%]">
         <h1 className="font-bold text-3xl">Form Submitted!!</h1>
 

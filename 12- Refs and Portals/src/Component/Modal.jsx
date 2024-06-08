@@ -1,10 +1,23 @@
-import React, { useState } from 'react'
+import React, { useImperativeHandle, useRef, useState } from 'react'
 import { forwardRef } from 'react';
 
 
 const Modal=forwardRef(function Modal({result, targetTime},ref) {
+
+    const dialog=useRef();
+
+    useImperativeHandle(ref, ()=>
+    {
+    return {
+        open()
+        {
+            dialog.current.showModal();
+        }
+    }
+    })
+
    
-return <dialog ref={ref} className='rounded-md shadow-lg w-fit h-fit p-20 backdrop:bg-black backdrop:opacity-60'>
+return <dialog ref={dialog} className='rounded-md shadow-lg w-fit h-fit p-20 backdrop:bg-black backdrop:opacity-60'>
 
     <h1 className='text -teal-700 text-4xl font-serif font-semibold'>You {result}</h1>
         <p className='text-xl '>Target time was <strong>{targetTime} seconds.</strong></p>
