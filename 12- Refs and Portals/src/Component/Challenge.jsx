@@ -27,24 +27,26 @@ export default function Challenge({ text, targetTime }) {
   { 
 
     clearInterval(timer.current);
-    setRemainingTime(targetTime*1000)
     dialog.current.open();
+ 
+  }
 
-    
-    
+  function handleResetTimer()
+  {
+   setRemainingTime(targetTime*1000)
   }
   return (
     <>
-    <Modal targetTime={targetTime} result="lost" ref={dialog}/>
+    <Modal targetTime={targetTime} remainingTime={remainingTime} ref={dialog} onReset={handleResetTimer}/>
      <section className="flex bg-white w-[35%] h-[70%] p-15 rounded-md shadow-md flex-col justify-center items-center gap-2">
       <h1 className="text-2xl font-bold">{text}</h1>
       <p className="text-xl font-medium">Target Time : {targetTime} </p>
-      <button onClick={timerIsActive? handleStop : handleStart} className="bg-gradient-to-r from-teal-500 to-teal-700 px-10 text-white rounded-md shadow-sm py-2">
+      <button onClick={timerIsActive? handleStop : handleStart} className="bg-gradient-to-r from-teal-500 to-teal-700 px-10 text-white rounded-md shadow-sm py-2 ">
         {timerIsActive? "Stop" : "Start"}
       </button>
-      <p className="text-sm">
-        {timerIsActive? "Timer is running...":"Timer is In-active"}
-        </p>
+
+        {timerIsActive?  <p className="text-sm animate-pulse">Timer is running...</p>: <p className="text-sm">Timer is Inactive</p>}
+      
     </section>
     </>
   );
